@@ -1,0 +1,3 @@
+host: :8080
+api:
+  match_service_flag: "matchService"
