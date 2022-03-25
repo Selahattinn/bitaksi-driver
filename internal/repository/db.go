@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"github.com/Selahattinn/bitaksi-driver/internal/repository/driver"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -11,8 +12,9 @@ import (
 
 // MongoRepository defines the Mongo implementation of Repository interface
 type MongoRepository struct {
-	cfg    *MongoConfig
-	client *mongo.Client
+	cfg        *MongoConfig
+	client     *mongo.Client
+	driverRepo driver.Repository
 }
 
 type MongoConfig struct {
@@ -45,9 +47,11 @@ func NewMongoRepository(cfg *MongoConfig) (*MongoRepository, error) {
 	if err != nil {
 		return nil, err
 	}
+	driverRepo := driver.NewMongoRepository(client)
 	return &MongoRepository{
-		cfg:    cfg,
-		client: client,
+		cfg:        cfg,
+		client:     client,
+		driverRepo: driverRepo,
 	}, nil
 }
 
@@ -57,4 +61,9 @@ func (r *MongoRepository) Shutdown() {
 	if err != nil {
 		logrus.Fatal(err)
 	}
+}
+
+// GetDriverRepository gets the user repository
+func (r *MongoRepository) GetDriverRepository() driver.Repository {
+	return r.driverRepo
 }

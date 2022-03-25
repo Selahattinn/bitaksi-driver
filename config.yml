@@ -1,3 +1,8 @@
 host: :8080
 api:
   match_service_flag: "matchService"
+database:
+    addr: localhost
+    port: 27017
+    username: bitaksi
+    password: bitaksi

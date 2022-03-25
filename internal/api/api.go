@@ -45,6 +45,9 @@ func New(cfg *Config, router *mux.Router, svc service.Service) (*API, error) {
 	// Endpoint for Drivers
 	api.Router.HandleFunc("/api/v1/driver", api.corsMiddleware(api.logMiddleware(api.AddDriver))).Methods("POST")
 
+	// Endpoint for Search
+	api.Router.HandleFunc("/api/v1/search", api.corsMiddleware(api.logMiddleware(api.authMiddleware(api.Search)))).Methods("POST")
+
 	return api, nil
 }
 
