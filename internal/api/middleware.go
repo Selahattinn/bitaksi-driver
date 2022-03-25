@@ -45,7 +45,6 @@ func (a *API) authMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-
 		//Check if its coming from the matchService
 		if authHeader == a.config.MatchServiceFlag {
 			next.ServeHTTP(w, r)

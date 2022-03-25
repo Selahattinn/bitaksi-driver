@@ -90,6 +90,8 @@ func (i *Instance) Shutdown() {
 		os.Exit(1)
 	}
 
+	//shutdown service
+	i.Service.Shutdown()
 	logrus.Info("Shutdown HTTP server...")
 	os.Exit(0)
 }

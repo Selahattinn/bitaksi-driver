@@ -21,21 +21,51 @@ func NewService(repo repository.Repository) (*Service, error) {
 	}, nil
 }
 
-func (s *Service) GetUser(driver *model.Driver) (*model.Driver, error) {
-	//Get driver from db
-	d, err := s.repository.GetDriverRepository().GetDriver(driver.ID)
+func (s *Service) CreateDriver(driver *model.Driver) (int64, error) {
+	//Create driver in db
+	id, err := s.repository.GetDriverRepository().CreateDriver(driver)
 	if err != nil {
+		return -1, err
+	}
+	return id, nil
+}
 
+func (s *Service) GetDriver(id int64) (*model.Driver, error) {
+	//Get driver in db
+	d, err := s.repository.GetDriverRepository().GetDriver(id)
+	if err != nil {
 		return nil, err
 	}
 	return d, nil
 }
 
-func (s *Service) CreateDriver(user *model.Driver) (interface{}, error) {
-	//Create driver in db
-	u, err := s.repository.GetDriverRepository().CreateDriver(user)
+func (s *Service) UpdateDriver(driver *model.Driver) (*model.Driver, error) {
+	//Update driver in db
+	d, err := s.repository.GetDriverRepository().UpdateDriver(driver)
 	if err != nil {
 		return nil, err
 	}
-	return u, nil
+	return d, nil
+}
+
+func (s *Service) DeleteDriver(driver *model.Driver) (int64, error) {
+	//Delete driver in db
+	id, err := s.repository.GetDriverRepository().DeleteDriver(driver)
+	if err != nil {
+		return -1, err
+	}
+	return id, nil
+}
+
+func (s *Service) GetAllDrivers() ([]*model.Driver, error) {
+	//Get all drivers from db
+	d, err := s.repository.GetDriverRepository().GetAllDrivers()
+	if err != nil {
+		return nil, err
+	}
+	return d, nil
+}
+
+func (s *Service) Shutdown() {
+	s.repository.Shutdown()
 }

@@ -1,8 +1,9 @@
-host: :8080
+host: :8081
 api:
   match_service_flag: "matchService"
 database:
-    addr: localhost
+    addr: "bitaksi-geopoint.dbi34.mongodb.net"
     port: 27017
-    username: bitaksi
-    password: bitaksi
+    username: selahattinceylan
+    password: bitaksideneme
+    dataPath: ""

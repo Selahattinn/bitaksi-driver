@@ -1,38 +1,52 @@
 package model
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
-	ErrInvalidLatitude  = errors.New("invalid latitude")
-	ErrInvalidLongitude = errors.New("invalid longitude")
+	ErrInvalidCoordinateType   = errors.New("invalid cordinate type")
+	ErrInvalidCoordinatesArray = errors.New("invalid cordinate array")
+	ErrInvalidLatitude         = errors.New("invalid latitude")
+	ErrInvalidLongitude        = errors.New("invalid longitude")
 )
 
 type Driver struct {
-	ID   int64   `json:"id"`
-	Lat  float64 `json:"lat"`
-	Long float64 `json:"long"`
+	ID       int64   `bson:"_id" json:"id"`
+	Location GeoJson `bson:"location" json:"location"`
+}
+type GeoJson struct {
+	Type        string    `json:"type"`
+	Coordinates []float64 `json:"coordinates"`
 }
 
 func NewDriver(id int64, lat float64, long float64) *Driver {
-	if lat < -180 || lat > 180 {
+	if lat < -90 || lat > 90 {
 		return nil
 	}
-	if long < -90 || long > 90 {
+	if long < -180 || long > 180 {
 		return nil
 	}
-
 	return &Driver{
-		Lat:  lat,
-		Long: long,
-		ID:   id,
+		ID: id,
+		Location: GeoJson{
+			Type:        "Point",
+			Coordinates: []float64{lat, long},
+		},
 	}
 }
 
 func (d *Driver) Validate() error {
-	if d.Lat < -180 || d.Lat > 180 {
+	if len(d.Location.Coordinates) != 2 {
+		return ErrInvalidCoordinatesArray
+	}
+	if d.Location.Type != "Point" {
+		return ErrInvalidCoordinateType
+	}
+	if d.Location.Coordinates[0] < -180 || d.Location.Coordinates[0] > 180 {
 		return ErrInvalidLatitude
 	}
-	if d.Long < -90 || d.Long > 90 {
+	if d.Location.Coordinates[1] < -90 || d.Location.Coordinates[1] > 90 {
 		return ErrInvalidLongitude
 	}
 	return nil

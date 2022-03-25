@@ -44,6 +44,10 @@ func New(cfg *Config, router *mux.Router, svc service.Service) (*API, error) {
 
 	// Endpoint for Drivers
 	api.Router.HandleFunc("/api/v1/driver", api.corsMiddleware(api.logMiddleware(api.AddDriver))).Methods("POST")
+	api.Router.HandleFunc("/api/v1/driver", api.corsMiddleware(api.logMiddleware(api.UpdateDriver))).Methods("PUT")
+	api.Router.HandleFunc("/api/v1/driver", api.corsMiddleware(api.logMiddleware(api.DeleteDriver))).Methods("DELETE")
+	api.Router.HandleFunc("/api/v1/driver", api.corsMiddleware(api.logMiddleware(api.GetAllDrivers))).Methods("GET")
+	api.Router.HandleFunc("/api/v1/driver/{id}", api.corsMiddleware(api.logMiddleware(api.FindDriver))).Methods("GET")
 
 	// Endpoint for Search
 	api.Router.HandleFunc("/api/v1/search", api.corsMiddleware(api.logMiddleware(api.authMiddleware(api.Search)))).Methods("POST")
