@@ -36,6 +36,7 @@ func (a *API) corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 // authMiddleware handles authentication
 func (a *API) authMiddleware(next http.HandlerFunc) http.HandlerFunc {
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		// Get Auth Header

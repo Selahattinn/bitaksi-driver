@@ -15,7 +15,7 @@ import (
 // @Tags         Search
 // @Accept       json
 // @Produce      json
-// @Param Flag header string true "Flag of the Match Service"
+// @Param 		 Flag header string true "Flag of the Match Service"
 // @Param        Search   body      model.Search  true  "An Search object with json format"
 // @Success      200  {object}  []model.SearchResult "Search result info with json format"
 // @Failure      401  "UnAuthorized"
@@ -28,6 +28,7 @@ func (a *API) Search(w http.ResponseWriter, r *http.Request) {
 		response.Errorf(w, r, fmt.Errorf("error parsing Search info: %v", err), http.StatusNotFound, "")
 		return
 	}
+
 	err = search.Validate()
 	if err != nil {
 		response.Errorf(w, r, fmt.Errorf("error validating Search info: %v", err), http.StatusNotFound, "")

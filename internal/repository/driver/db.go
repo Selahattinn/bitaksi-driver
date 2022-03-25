@@ -3,7 +3,6 @@ package driver
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/Selahattinn/bitaksi-driver/internal/model"
 	"go.mongodb.org/mongo-driver/bson"
@@ -104,7 +103,6 @@ func (r *MongoRepository) FindSuitableDrivers(RiderPoint *model.Rider, maxDistan
 
 	cursor, err := r.collection.Find(context.TODO(), bson.M{"location": bson.M{"$nearSphere": bson.M{"$geometry": bson.M{"type": "Point", "coordinates": []float64{RiderPoint.Lat, RiderPoint.Long}}, "$maxDistance": maxDistance}}})
 	if err != nil {
-		fmt.Println(err)
 		return nil, err
 	}
 	defer cursor.Close(context.TODO())

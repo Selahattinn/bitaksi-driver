@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"encoding/csv"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -173,14 +172,12 @@ func readCSV(path string) ([]*model.Driver, error) {
 
 		lat, err := strconv.ParseFloat(rec[0], 64)
 		if err != nil {
-			fmt.Println(err)
 
 			logrus.WithError(err).Error("failed to parse lat")
 			return nil, err
 		}
 		long, err := strconv.ParseFloat(rec[1], 64)
 		if err != nil {
-			fmt.Println(err)
 			logrus.WithError(err).Error("failed to parse Long")
 			return nil, err
 		}
