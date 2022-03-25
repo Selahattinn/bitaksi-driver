@@ -1,8 +1,24 @@
+// @title           Driver API
+// @version         1.0
+// @description     This is a Driver server.
+// @termsOfService  https://www.selahattinceylan.com
+
+// @contact.name   API Support
+// @contact.url    https://www.selahattinceylan.com
+// @contact.email  selahattinceylan9622@gmail.com
+
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host      localhost:8081
+// @BasePath  /api/v1
+
 package api
 
 import (
 	"net/http"
 
+	_ "github.com/Selahattinn/bitaksi-driver/docs"
 	"github.com/Selahattinn/bitaksi-driver/internal/api/response"
 	"github.com/Selahattinn/bitaksi-driver/internal/service"
 	"github.com/gorilla/mux"
