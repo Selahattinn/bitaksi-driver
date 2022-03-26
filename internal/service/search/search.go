@@ -8,6 +8,7 @@ import (
 )
 
 const radius = 6371
+const km = 1000
 
 type Service struct {
 	repository repository.Repository
@@ -21,7 +22,7 @@ func NewService(repo repository.Repository) (*Service, error) {
 
 func (s *Service) FindSuitableDrivers(searchInfo *model.Search) ([]*model.SearchResult, error) {
 	//Get suitable drivers in db
-	d, err := s.repository.GetDriverRepository().FindSuitableDrivers(&searchInfo.Rider, searchInfo.MaxDistance*1000)
+	d, err := s.repository.GetDriverRepository().FindSuitableDrivers(&searchInfo.Rider, searchInfo.MaxDistance*km)
 	if err != nil {
 		return nil, err
 	}
