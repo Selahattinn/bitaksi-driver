@@ -26,6 +26,18 @@
 
 First of all, [download](https://golang.org/dl/) and install **Go**. :)
 
+
+## For Initialize With Data
+Change the `config.yml` file `(dataPath)` and run. It will drop the database and recreate it. Permissions granted for the user `(selahattinceylan)` and `(bitaksideneme)`.
+
+When intializing, There are 4-5 seconds delay.
+
+
+## For Authentication
+Change the `config.yml` file `(match_service_flag)` and run. It will checking the requests header part and looking for flag `(Authorization)`.
+
+Dont forget the `(Authorization)` flag for search requests.
+
 ## For Documentation Creation
 ```bash
 make swagger
