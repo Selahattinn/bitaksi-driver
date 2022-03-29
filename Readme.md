@@ -16,7 +16,7 @@
    ├─ service                //Service Layer
    │  ├─ driver               //Service Layer for driver
       ├─ search               //Service Layer for search
-   ├─ repository                //Service Layer
+   ├─ repository                //Repository Layer
    │  ├─ driver               //Repository Layer for driver
    └─ version                //Version control&save for git
 └─ docs         //Auto Generated Documentation
