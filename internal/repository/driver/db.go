@@ -56,6 +56,13 @@ func (r *MongoRepository) GetDriver(id int64) (*model.Driver, error) {
 }
 
 func (r *MongoRepository) CreateDriver(driver *model.Driver) (int64, error) {
+	// find sutiable id
+	id, err := r.collection.CountDocuments(context.TODO(), bson.M{})
+	if err != nil {
+		return -1, err
+	}
+	driver.ID = id + 1
+
 	opt, err := r.collection.InsertOne(context.TODO(), driver)
 	logrus.Debug("QUERY: Create a driver Driver: ", driver.ID, " Inserted Driver Count: ", opt)
 	if err != nil {
