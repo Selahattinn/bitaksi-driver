@@ -51,12 +51,12 @@ func New(cfg *Config, router *mux.Router, svc service.Service) (*API, error) {
 	// Endpoint for healtcheck
 	api.Router.HandleFunc("/api/v1/health", api.corsMiddleware(api.logMiddleware(api.healthHandler))).Methods("GET")
 
-	api.Router.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
+	api.Router.PathPrefix("/swagger/").HandlerFunc(api.corsMiddleware(httpSwagger.Handler(
 		httpSwagger.URL("http://localhost:8081/swagger/doc.json"), //The url pointing to API definition
 		httpSwagger.DeepLinking(true),
 		httpSwagger.DocExpansion("none"),
 		httpSwagger.DomID("#swagger-ui"),
-	))
+	)))
 
 	// Endpoint for Drivers
 	api.Router.HandleFunc("/api/v1/driver", api.corsMiddleware(api.logMiddleware(api.AddDriver))).Methods("POST")
